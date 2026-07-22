@@ -70,12 +70,14 @@ Page({
     const { type, profile, dimensionScores } = this.data
     sharePoster(this, {
       eyebrow: '牛马状态测试 · 性格报告',
+      masthead: '03 / PERSONALITY',
       title: type,
       subtitle: profile.name,
       cards: [
         { title: '你的牛马真相', content: profile.truth },
         { title: '生存指南', content: profile.guide },
-        { title: '你的性格倾向', content: dimensionScores.map(item => `${item.label}：${item.result.replace('更偏向：', '')}`).join(' · ') }
+        { title: '给你的一句话', content: profile.quote },
+        { title: '你的性格倾向', content: dimensionScores.map(item => `${item.label}\n${item.result}\n${item.detail}`).join('\n\n') }
       ]
     })
   },

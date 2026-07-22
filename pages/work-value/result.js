@@ -82,16 +82,23 @@ Page({
   restart() { wx.redirectTo({ url: '/pages/work-value/form' }) },
   goHome() { wx.reLaunch({ url: '/pages/index/index' }) },
   shareReportImage() {
-    const { score, level, hourlyPay, dailyPay, yearWorkDays, city, commute } = this.data
+    const { score, level, hourlyPay, dailyPay, yearWorkDays, city, commute, environment, time, career, pay } = this.data
     sharePoster(this, {
       eyebrow: '牛马状态测试 · 工作价值报告',
+      masthead: '01 / WORK VALUE',
       title: level.title,
       subtitle: level.tagline,
       score: `${score} / 100`,
       cards: [
         { title: '工作账本', content: `真实时薪 ${hourlyPay} 元 · 平均日薪 ${dailyPay} 元 · 年工作 ${yearWorkDays} 天` },
+        { title: '最终评估', content: level.summary },
         { title: '工作城市', content: `${city.title}。${city.copy}` },
-        { title: '每天通勤', content: `${commute.title}。${commute.copy}` }
+        { title: '每天通勤', content: `${commute.title}。${commute.copy}` },
+        { title: '工作环境', content: `${environment.title}。${environment.copy}` },
+        { title: '工作时间', content: `${time.title}。${time.copy}` },
+        { title: '教育与工作经验', content: `${career.title}。${career.copy}` },
+        { title: '日薪', content: `${pay.title}。${pay.copy}` },
+        { title: '综合建议', content: level.action }
       ]
     })
   }

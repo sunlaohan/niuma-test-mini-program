@@ -1,4 +1,7 @@
 const REPORT_WIDTH = 750
+const EXPORT_SCALE = 2
+const MASTHEAD_HEIGHT = 72
+const HERO_HEIGHT = 292
 
 function roundedRect(ctx, x, y, width, height, radius) {
   const r = Math.min(radius, width / 2, height / 2)
@@ -43,43 +46,56 @@ function createPoster(page, config) {
     page.createSelectorQuery().select('#reportCanvas').fields({ node: true, size: true }).exec(result => {
       const canvas = result[0] && result[0].node
       if (!canvas) { reject(new Error('未找到报告画布')); return }
-      canvas.width = REPORT_WIDTH
-      canvas.height = 1
+      canvas.width = REPORT_WIDTH * EXPORT_SCALE
+      canvas.height = EXPORT_SCALE
       const ctx = canvas.getContext('2d')
+      ctx.scale(EXPORT_SCALE, EXPORT_SCALE)
       const contentWidth = REPORT_WIDTH - 152
       ctx.font = '24px sans-serif'
       const cards = config.cards.map(card => ({ ...card, lines: getLines(ctx, card.content, contentWidth) }))
       const cardHeights = cards.map(card => 104 + card.lines.length * 42)
-      const reportHeight = 336 + cardHeights.reduce((sum, height) => sum + height + 28, 0) + 104
-      canvas.height = reportHeight
+      const reportHeight = MASTHEAD_HEIGHT + HERO_HEIGHT + 44 + cardHeights.reduce((sum, height) => sum + height + 28, 0) + 104
+      canvas.width = REPORT_WIDTH * EXPORT_SCALE
+      canvas.height = reportHeight * EXPORT_SCALE
       const drawCtx = canvas.getContext('2d')
+      drawCtx.scale(EXPORT_SCALE, EXPORT_SCALE)
 
       drawCtx.fillStyle = '#f4f4f1'
       drawCtx.fillRect(0, 0, REPORT_WIDTH, reportHeight)
+      drawCtx.fillStyle = '#ffffff'
+      drawCtx.fillRect(0, 0, REPORT_WIDTH, MASTHEAD_HEIGHT)
+      drawCtx.textAlign = 'left'
       drawCtx.fillStyle = '#111111'
-      drawCtx.fillRect(0, 0, REPORT_WIDTH, 292)
+      drawCtx.font = 'bold 22px sans-serif'
+      drawCtx.fillText(config.masthead || config.eyebrow, 44, 46)
+      drawCtx.textAlign = 'right'
+      drawCtx.fillText('结果报告', REPORT_WIDTH - 44, 46)
+      drawCtx.fillStyle = '#111111'
+      drawCtx.fillRect(0, MASTHEAD_HEIGHT, REPORT_WIDTH, HERO_HEIGHT)
       drawCtx.textAlign = 'center'
       drawCtx.fillStyle = 'rgba(255,255,255,.78)'
       drawCtx.font = '24px sans-serif'
-      drawCtx.fillText(config.eyebrow, REPORT_WIDTH / 2, 58)
+      drawCtx.fillText(config.eyebrow, REPORT_WIDTH / 2, MASTHEAD_HEIGHT + 54)
       drawCtx.fillStyle = '#ffffff'
       drawCtx.font = 'bold 54px sans-serif'
-      drawCtx.fillText(config.title, REPORT_WIDTH / 2, 148)
+      drawCtx.fillText(config.title, REPORT_WIDTH / 2, MASTHEAD_HEIGHT + 144)
       drawCtx.font = '26px sans-serif'
       drawCtx.fillStyle = 'rgba(255,255,255,.82)'
-      drawCtx.fillText(config.subtitle, REPORT_WIDTH / 2, 202)
+      drawCtx.fillText(config.subtitle, REPORT_WIDTH / 2, MASTHEAD_HEIGHT + 198)
       if (config.score) {
         drawCtx.fillStyle = '#ffffff'
         drawCtx.font = 'bold 34px sans-serif'
-        drawCtx.fillText(config.score, REPORT_WIDTH / 2, 252)
+        drawCtx.fillText(config.score, REPORT_WIDTH / 2, MASTHEAD_HEIGHT + 248)
       }
 
-      let y = 336
+      let y = MASTHEAD_HEIGHT + HERO_HEIGHT + 44
       cards.forEach((card, index) => {
         const height = cardHeights[index]
-        roundedRect(drawCtx, 44, y, REPORT_WIDTH - 88, height, 26)
         drawCtx.fillStyle = '#ffffff'
-        drawCtx.fill()
+        drawCtx.fillRect(44, y, REPORT_WIDTH - 88, height)
+        drawCtx.strokeStyle = '#111111'
+        drawCtx.lineWidth = 3
+        drawCtx.strokeRect(44, y, REPORT_WIDTH - 88, height)
         drawCtx.textAlign = 'left'
         drawCtx.fillStyle = '#171a19'
         drawCtx.font = 'bold 30px sans-serif'
@@ -101,10 +117,10 @@ function createPoster(page, config) {
         canvas,
         x: 0,
         y: 0,
-        width: REPORT_WIDTH,
-        height: reportHeight,
-        destWidth: REPORT_WIDTH,
-        destHeight: reportHeight,
+        width: REPORT_WIDTH * EXPORT_SCALE,
+        height: reportHeight * EXPORT_SCALE,
+        destWidth: REPORT_WIDTH * EXPORT_SCALE,
+        destHeight: reportHeight * EXPORT_SCALE,
         fileType: 'png',
         quality: 1,
         success: res => { page.setData({ generatingReport: false, reportImagePath: res.tempFilePath }); resolve(res.tempFilePath) },

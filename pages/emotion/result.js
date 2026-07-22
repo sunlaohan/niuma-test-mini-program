@@ -37,13 +37,16 @@ Page({
     const { result, total, dimensions } = this.data
     sharePoster(this, {
       eyebrow: '牛马状态测试 · 情绪监测报告',
+      masthead: '02 / EMOTION CHECK',
       title: result.title,
       subtitle: result.tagline,
       score: `${total} / 36`,
       cards: [
         { title: '此刻的你', content: result.truth },
         { title: '拯救计划', content: result.plan },
-        { title: '情绪维度', content: dimensions.map(item => `${item.name} ${item.score} / 9`).join(' · ') }
+        { title: '给你的一句话', content: result.quote },
+        { title: '情绪维度', content: dimensions.map(item => `${item.name}：${item.score} / 9\n${item.note}`).join('\n\n') },
+        ...(result.safety ? [{ title: '重要提醒', content: '如果低落、失眠、无望感或自我伤害的想法持续出现，请尽快联系可信赖的人、心理咨询师或当地紧急支持服务。' }] : [])
       ]
     })
   },

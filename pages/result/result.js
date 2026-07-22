@@ -1,6 +1,7 @@
 const { getMbtiContent, getMbtiLabel } = require('../../utils/mbti')
 
 const REPORT_WIDTH = 750
+const EXPORT_SCALE = 2
 
 function roundedRect(ctx, x, y, width, height, radius) {
   const r = Math.min(radius, width / 2, height / 2)
@@ -48,21 +49,39 @@ function getReportLayout(ctx, data) {
   const lineHeight = 42
 
   ctx.font = '24px sans-serif'
+  const summaryLines = getTextLines(ctx, data.result.description, cardWidth - 64)
+  const summaryHeight = 112 + summaryLines.length * lineHeight
   const analysisLines = getTextLines(ctx, data.mbtiAnalysis, cardWidth - 64)
   const analysisHeight = 146 + analysisLines.length * lineHeight
   const adviceLines = getTextLines(ctx, data.personalizedAdvice, cardWidth - 64)
   const adviceHeight = 112 + adviceLines.length * lineHeight
-  const adviceY = 404 + 506 + analysisHeight + 36
-  const reportHeight = adviceY + adviceHeight + 148
+  const safetyCopy = data.result.tone === 'critical'
+    ? '若关系中存在人身威胁、暴力或强迫，请优先离开危险环境，并向可信赖的人或当地专业机构求助。'
+    : ''
+  const safetyLines = safetyCopy ? getTextLines(ctx, safetyCopy, cardWidth - 64) : []
+  const safetyHeight = safetyLines.length ? 112 + safetyLines.length * lineHeight : 0
+  const dimensionsY = 404 + summaryHeight + 36
+  const analysisY = dimensionsY + 506
+  const adviceY = analysisY + analysisHeight + 36
+  const safetyY = adviceY + adviceHeight + 36
+  const reportHeight = safetyY + safetyHeight + 112
 
   return {
     cardX,
     cardWidth,
     lineHeight,
+    summaryLines,
+    summaryHeight,
     analysisLines,
     analysisHeight,
     adviceLines,
     adviceHeight,
+    safetyLines,
+    safetyHeight,
+    dimensionsY,
+    analysisY,
+    adviceY,
+    safetyY,
     reportHeight
   }
 }
@@ -204,13 +223,16 @@ Page({
             return
           }
 
-          canvas.width = REPORT_WIDTH
-          canvas.height = 1
+          canvas.width = REPORT_WIDTH * EXPORT_SCALE
+          canvas.height = EXPORT_SCALE
           let ctx = canvas.getContext('2d')
+          ctx.scale(EXPORT_SCALE, EXPORT_SCALE)
           const layout = getReportLayout(ctx, this.data)
 
-          canvas.height = layout.reportHeight
+          canvas.width = REPORT_WIDTH * EXPORT_SCALE
+          canvas.height = layout.reportHeight * EXPORT_SCALE
           ctx = canvas.getContext('2d')
+          ctx.scale(EXPORT_SCALE, EXPORT_SCALE)
 
           this.drawReportPoster(ctx, layout)
 
@@ -218,10 +240,10 @@ Page({
             canvas,
             x: 0,
             y: 0,
-            width: REPORT_WIDTH,
-            height: layout.reportHeight,
-            destWidth: REPORT_WIDTH,
-            destHeight: layout.reportHeight,
+            width: REPORT_WIDTH * EXPORT_SCALE,
+            height: layout.reportHeight * EXPORT_SCALE,
+            destWidth: REPORT_WIDTH * EXPORT_SCALE,
+            destHeight: layout.reportHeight * EXPORT_SCALE,
             fileType: 'png',
             quality: 1,
             success: res => {
@@ -259,10 +281,18 @@ Page({
       cardX,
       cardWidth,
       lineHeight,
+      summaryLines,
+      summaryHeight,
       analysisLines,
       analysisHeight,
       adviceLines,
       adviceHeight,
+      safetyLines,
+      safetyHeight,
+      dimensionsY,
+      analysisY,
+      adviceY,
+      safetyY,
       reportHeight
     } = layout
 
@@ -290,7 +320,19 @@ Page({
 
     let y = 404
 
-    roundedRect(ctx, cardX, y, cardWidth, 470, 26)
+    roundedRect(ctx, cardX, y, cardWidth, summaryHeight, 0)
+    ctx.fillStyle = '#ffffff'
+    ctx.fill()
+    ctx.textAlign = 'left'
+    ctx.fillStyle = '#171a19'
+    ctx.font = 'bold 30px sans-serif'
+    ctx.fillText('此刻的关系画像', 76, y + 54)
+    ctx.fillStyle = '#5e6663'
+    ctx.font = '24px sans-serif'
+    drawLines(ctx, summaryLines, 76, y + 102, lineHeight)
+
+    y = dimensionsY
+    roundedRect(ctx, cardX, y, cardWidth, 470, 0)
     ctx.fillStyle = '#ffffff'
     ctx.fill()
 
@@ -318,8 +360,8 @@ Page({
       ctx.fill()
     })
 
-    y += 506
-    roundedRect(ctx, cardX, y, cardWidth, analysisHeight, 26)
+    y = analysisY
+    roundedRect(ctx, cardX, y, cardWidth, analysisHeight, 0)
     ctx.fillStyle = '#ffffff'
     ctx.fill()
 
@@ -334,8 +376,8 @@ Page({
     ctx.font = '24px sans-serif'
     drawLines(ctx, analysisLines, 76, y + 154, lineHeight)
 
-    y += analysisHeight + 36
-    roundedRect(ctx, cardX, y, cardWidth, adviceHeight, 26)
+    y = adviceY
+    roundedRect(ctx, cardX, y, cardWidth, adviceHeight, 0)
     ctx.fillStyle = '#ffffff'
     ctx.fill()
 
@@ -345,6 +387,19 @@ Page({
     ctx.fillStyle = '#5e6663'
     ctx.font = '24px sans-serif'
     drawLines(ctx, adviceLines, 76, y + 105, lineHeight)
+
+    if (safetyHeight) {
+      y = safetyY
+      roundedRect(ctx, cardX, y, cardWidth, safetyHeight, 0)
+      ctx.fillStyle = '#111111'
+      ctx.fill()
+      ctx.fillStyle = '#ffffff'
+      ctx.font = 'bold 28px sans-serif'
+      ctx.fillText('请把安全放在第一位', 76, y + 56)
+      ctx.fillStyle = 'rgba(255,255,255,.82)'
+      ctx.font = '24px sans-serif'
+      drawLines(ctx, safetyLines, 76, y + 104, lineHeight)
+    }
 
     ctx.textAlign = 'center'
     ctx.fillStyle = '#929996'
