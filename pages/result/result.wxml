@@ -1,0 +1,66 @@
+<view class="page safe-bottom">
+  <view class="result-hero tone-{{result.tone}}">
+    <view class="mini-label">RELATIONSHIP STATUS / REPORT</view>
+    <view class="score-ring">
+      <view class="score-inner">
+        <text class="score-number">{{total}}</text>
+        <text class="score-total">/ 100</text>
+      </view>
+    </view>
+    <text class="result-title">{{result.title}}</text>
+    <text class="result-tagline">{{result.tagline}}</text>
+  </view>
+
+  <view class="summary-card">
+    <text class="section-kicker">01 / 此刻的关系画像</text>
+    <text class="summary">{{result.description}}</text>
+  </view>
+
+  <view class="dimension-card">
+    <view class="section-head">
+      <text class="section-title">02 / 四个维度</text>
+      <text class="section-note">得分率</text>
+    </view>
+    <view class="dimension-row" wx:for="{{dimensionScores}}" wx:key="key">
+      <view class="row-copy">
+        <text>{{item.name}}</text>
+        <text class="percent">{{item.percent}}%</text>
+      </view>
+      <view class="bar">
+        <view class="bar-fill" style="width: {{item.percent}}%"></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="mbti-card">
+    <view class="mbti-card-head">
+      <text class="advice-title">{{mbtiAnalysisTitle}}</text>
+    </view>
+    <text class="mbti-name">{{mbtiLabel}}</text>
+    <text class="advice-text">{{mbtiAnalysis}}</text>
+  </view>
+
+  <view class="advice-card">
+    <view class="advice-copy">
+      <text class="advice-title">04 / 给你们的小建议</text>
+      <text class="advice-text">{{personalizedAdvice}}</text>
+    </view>
+  </view>
+
+  <view class="safety" wx:if="{{result.tone === 'critical'}}">
+    <text class="safety-title">请把安全放在第一位</text>
+    <text>若关系中存在人身威胁、暴力或强迫，请优先离开危险环境，并向可信赖的人或当地专业机构求助。</text>
+  </view>
+
+  <view class="report-actions">
+    <button class="share-report" bindtap="shareReportImage" disabled="{{generatingReport}}">
+      {{generatingReport ? '正在生成…' : '分享结果'}}
+    </button>
+  </view>
+
+  <button class="restart" bindtap="restart">重新测试</button>
+  <button class="home" bindtap="goHome">回到首页</button>
+  <text class="disclaimer">测试结果仅供娱乐</text>
+
+  <canvas type="2d" id="reportCanvas" class="report-canvas"></canvas>
+</view>

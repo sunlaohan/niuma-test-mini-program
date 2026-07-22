@@ -1,0 +1,5 @@
+<view class="page safe-bottom">
+  <view class="top"><view class="top-copy"><text>02 / EMOTION CHECK</text><text>{{currentIndex + 1}} / {{questions.length}}</text></view><view class="track"><view class="fill" style="width: {{progress}}%"></view></view></view>
+  <view class="question-card"><text class="question-no">第 {{currentIndex + 1}} 题 / {{currentQuestion.dimension}}</text><text class="question">{{currentQuestion.question}}</text><view class="options"><view wx:for="{{currentQuestion.options}}" wx:key="label" class="option {{selectedIndex === index ? 'selected' : ''}}" bindtap="selectOption" data-index="{{index}}"><text class="option-index">0{{index + 1}}</text><text>{{item.label}}</text></view></view><view class="actions"><button class="back" bindtap="previous" disabled="{{currentIndex === 0}}">上一步</button><button class="next {{selectedIndex === -1 ? 'disabled' : ''}}" bindtap="next">{{currentIndex === questions.length - 1 ? '查看结果' : '下一题'}} →</button></view></view>
+  <text class="note">按你最近两周的真实状态作答。</text>
+</view>

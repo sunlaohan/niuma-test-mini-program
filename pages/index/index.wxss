@@ -1,0 +1,48 @@
+.page {
+  min-height: 100vh;
+  padding: 54rpx 30rpx 0;
+  box-sizing: border-box;
+}
+
+.hero-copy { padding: 0 2rpx 28rpx; }
+.title { display: block; font-size: 62rpx; font-weight: 800; line-height: 1.16; }
+.subtitle { display: block; width: 510rpx; margin-top: 24rpx; font-size: 27rpx; line-height: 1.55; }
+
+.countdown-card {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  min-height: 108rpx;
+  padding: 18rpx 24rpx;
+  box-sizing: border-box;
+  border: 4rpx solid #111;
+  background: #fff;
+}
+.weekend-countdown { margin-bottom: 16rpx; }
+.holiday-countdown { margin-bottom: 20rpx; }
+.holiday-copy { display: flex; flex-direction: column; gap: 8rpx; }
+.holiday-label { color: #666; font-size: 24rpx; font-weight: 700; letter-spacing: 1rpx; }
+.holiday-name { font-size: 29rpx; font-weight: 800; }
+.countdown-number { display: flex; align-items: baseline; gap: 7rpx; white-space: nowrap; }
+.countdown-value { font-size: 50rpx; font-weight: 800; line-height: 1; }
+.countdown-unit { font-size: 24rpx; font-weight: 700; }
+
+.modules { display: flex; flex-direction: column; gap: 16rpx; }
+.module {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  min-height: 200rpx;
+  padding: 20rpx 24rpx;
+  box-sizing: border-box;
+  border: 4rpx solid #111;
+}
+.module-heading { display: flex; align-items: baseline; gap: 20rpx; }
+.module-no { font-size: 38rpx; font-weight: 800; line-height: 1.05; }
+.module-copy { display: flex; flex-direction: column; justify-content: space-between; }
+.module-title { font-size: 38rpx; font-weight: 800; line-height: 1.05; }
+.module-desc { display: block; font-size: 24rpx; line-height: 1.35; }
+.module-status { align-self: start; padding: 5rpx 8rpx; border: 2rpx solid currentColor; font-size: 24rpx; font-weight: 700; }
+.module-dark { color: #fff; background: #111; }
+.module-featured { min-height: 200rpx; color: #fff; background: #111; }
+.module-arrow { align-self: end; font-size: 54rpx; font-weight: 300; line-height: .8; }

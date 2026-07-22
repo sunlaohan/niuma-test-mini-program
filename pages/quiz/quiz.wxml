@@ -1,0 +1,50 @@
+<view class="page safe-bottom">
+  <view class="top">
+    <view class="progress-copy">
+      <text class="dimension">RELATIONSHIP / {{currentQuestion.dimension}}</text>
+      <text class="count">{{currentIndex + 1}} / {{questions.length}}</text>
+    </view>
+    <view class="progress-track">
+      <view class="progress-fill" style="width: {{progress}}%;"></view>
+    </view>
+    <view class="dimension-dots">
+      <view wx:for="{{dimensions}}" wx:key="name" class="dot-item {{item.active ? 'active' : ''}} {{item.done ? 'done' : ''}}">
+        <view class="dot"></view>
+        <text>{{item.shortName}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="question-card">
+    <text class="question-no">QUESTION / {{questionNo}}</text>
+    <text class="question">{{currentQuestion.text}}</text>
+    <text class="hint">这句话与你们近期的相处有多符合？</text>
+
+    <radio-group class="options" bindchange="selectOption">
+      <label
+        wx:for="{{options}}"
+        wx:key="value"
+        class="option {{selectedValue === item.value ? 'selected' : ''}}"
+      >
+        <radio
+          class="radio"
+          value="{{item.value}}"
+          checked="{{selectedValue === item.value}}"
+        />
+        <view class="radio-mark">✓</view>
+        <text class="option-label">{{item.label}}</text>
+        <text class="score">{{item.value}} 分</text>
+      </label>
+    </radio-group>
+  </view>
+
+  <view class="quote">诚实面对感受，是照顾一段关系的开始。</view>
+
+  <view class="actions">
+    <button class="back-button" bindtap="previous" disabled="{{currentIndex === 0}}">上一步</button>
+    <button class="next-button {{selectedValue ? '' : 'disabled'}}" bindtap="next">
+      {{currentIndex === questions.length - 1 ? '查看结果' : '下一题'}}
+      <text>→</text>
+    </button>
+  </view>
+</view>

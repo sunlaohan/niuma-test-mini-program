@@ -1,0 +1,30 @@
+.page { min-height: 100vh; box-sizing: border-box; padding: 32rpx 30rpx 0; }
+.top { margin-bottom: 38rpx; }
+.progress-copy { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16rpx; }
+.dimension, .count { font-size: 24rpx; font-weight: 700; letter-spacing: 1rpx; }
+.count { color: #666; }
+.progress-track { height: 12rpx; background: #d4d4d0; }
+.progress-fill { width: 0; height: 100%; background: #111; transition: width 300ms ease-out; }
+.dimension-dots { display: flex; justify-content: space-between; margin-top: 17rpx; }
+.dot-item { display: flex; align-items: center; gap: 7rpx; color: #777; font-size: 24rpx; }
+.dot { width: 12rpx; height: 12rpx; border: 2rpx solid #111; box-sizing: border-box; }
+.dot-item.active, .dot-item.done { color: #111; font-weight: 700; }
+.dot-item.active .dot, .dot-item.done .dot { background: #111; }
+.question-card { padding: 30rpx 28rpx 28rpx; border: 4rpx solid #111; background: #fff; }
+.question-no { display: block; margin-bottom: 26rpx; font-size: 24rpx; font-weight: 700; letter-spacing: 2rpx; }
+.question { display: block; min-height: 170rpx; font-size: 42rpx; font-weight: 800; line-height: 1.38; }
+.hint { display: block; margin: 25rpx 0 27rpx; color: #666; font-size: 24rpx; }
+.options { display: flex; flex-direction: column; gap: 12rpx; }
+.option { position: relative; display: flex; align-items: center; height: 84rpx; padding: 0 18rpx; border: 2rpx solid #111; background: #fff; box-sizing: border-box; }
+.option.selected { color: #fff; background: #111; }
+.radio { position: absolute; opacity: 0; }
+.radio-mark { display: flex; align-items: center; justify-content: center; width: 34rpx; height: 34rpx; margin-right: 18rpx; box-sizing: border-box; border: 2rpx solid #d6d6d6; border-radius: 50%; color: transparent; font-size: 24rpx; font-weight: 800; line-height: 1; }
+.option.selected .radio-mark { border-color: #fff; background: #fff; color: #111; }
+.option-label { flex: 1; font-size: 26rpx; font-weight: 600; }
+.score { font-size: 24rpx; }.selected .score { color: #fff; }
+.quote { margin: 29rpx 0; padding-left: 18rpx; border-left: 6rpx solid #111; color: #555; font-size: 24rpx; line-height: 1.5; }
+.actions { display: flex; gap: 14rpx; }
+.actions button { display: flex; align-items: center; justify-content: center; box-sizing: border-box; height: 90rpx; margin: 0; padding: 0; border: 3rpx solid #111; font-size: 26rpx; font-weight: 700; line-height: 1; }
+.actions button::after { border: none; }
+.back-button { width: 184rpx; color: #111; background: #fff; }.back-button[disabled] { border-color: #bbb; color: #aaa; }
+.next-button { flex: 1; gap: 18rpx; color: #fff; background: #111; }.next-button.disabled { opacity: .36; }

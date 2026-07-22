@@ -1,0 +1,10 @@
+<view class="page safe-bottom">
+  <view class="masthead"><text>03 / PERSONALITY</text><text>结果报告</text></view>
+  <view class="hero"><text class="eyebrow">YOUR WORK PERSONALITY</text><text class="type">{{type}}</text><text class="type-name">{{profile.name}}</text></view>
+  <view class="block"><text class="block-no">01 / 你的牛马真相</text><text class="block-copy">{{profile.truth}}</text></view>
+  <view class="block"><text class="block-no">02 / 生存指南</text><text class="block-copy">{{profile.guide}}</text></view>
+  <view class="quote"><text>“</text><text>{{profile.quote}}</text></view>
+  <view class="block"><text class="block-no">03 / 你的性格倾向</text><text class="scores-intro">每一项都没有好坏，只是你更自然的做事方式。</text><view class="scores"><view wx:for="{{dimensionScores}}" wx:key="label" class="score-cell"><text class="score-label">{{item.label}}</text><text class="score-result">{{item.result}}</text><text class="score-detail">{{item.detail}}</text></view></view></view>
+  <view class="actions"><button class="primary" bindtap="shareReportImage" disabled="{{generatingReport}}">{{generatingReport ? '正在生成…' : '分享结果'}}</button><button class="secondary" bindtap="restart">重新测试</button><button class="secondary" bindtap="goHome">回到首页</button></view>
+  <canvas type="2d" id="reportCanvas" class="report-canvas"></canvas>
+</view>

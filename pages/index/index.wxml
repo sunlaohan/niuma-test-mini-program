@@ -1,0 +1,59 @@
+<view class="page safe-bottom">
+  <view class="hero-copy">
+    <text class="title">浮沉自渡/<br/>冷暖自知</text>
+    <text class="subtitle">让我来帮你摸清底细，对齐颗粒度</text>
+  </view>
+
+  <view class="countdown-card weekend-countdown">
+    <view class="holiday-copy">
+      <text class="holiday-label">下一次周末</text>
+      <text class="holiday-name">{{weekendCountdown.label}}</text>
+    </view>
+    <view class="countdown-number">
+      <text class="countdown-value">{{weekendCountdown.countdown}}</text>
+      <text class="countdown-unit">天后休息</text>
+    </view>
+  </view>
+
+  <view class="countdown-card holiday-countdown">
+    <view class="holiday-copy">
+      <text class="holiday-label">下一次法定假日</text>
+      <text class="holiday-name">{{nextHoliday.name}} · 连休{{nextHoliday.days}}天</text>
+    </view>
+    <view class="countdown-number">
+      <text class="countdown-value">{{nextHoliday.countdown}}</text>
+      <text class="countdown-unit">天后放假</text>
+    </view>
+  </view>
+
+  <view class="modules">
+    <view class="module module-muted" bindtap="openWorkValue">
+      <view class="module-copy">
+        <view class="module-heading"><text class="module-no">01</text><text class="module-title">工作性价比</text></view>
+        <text class="module-desc">看看这b班上的值不值</text>
+      </view>
+      <text class="module-arrow">→</text>
+    </view>
+    <view class="module module-dark" bindtap="openEmotion">
+      <view class="module-copy">
+        <view class="module-heading"><text class="module-no">02</text><text class="module-title">情绪监测</text></view>
+        <text class="module-desc">都是第一次做人，别委屈自己</text>
+      </view>
+      <text class="module-arrow">→</text>
+    </view>
+    <view class="module module-muted" bindtap="openPersonality">
+      <view class="module-copy">
+        <view class="module-heading"><text class="module-no">03</text><text class="module-title">性格测试</text></view>
+        <text class="module-desc">清晰自我认知，早日赎身</text>
+      </view>
+      <text class="module-arrow">→</text>
+    </view>
+    <view class="module module-featured" bindtap="openRelationship">
+      <view class="module-copy">
+        <view class="module-heading"><text class="module-no">04</text><text class="module-title">两性关系</text></view>
+        <text class="module-desc">上天给我什么，我就享受什么</text>
+      </view>
+      <text class="module-arrow">→</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,26 @@
+<view class="page safe-bottom">
+  <view class="masthead"><text>01 / WORK VALUE</text><text>结果报告</text></view>
+  <view class="hero">
+    <text class="eyebrow">YOUR WORK VALUE REPORT</text>
+    <view class="score"><text>{{score}}</text><text>/ 100</text></view>
+    <text class="title">{{level.title}}</text>
+    <text class="tagline">{{level.tagline}}</text>
+  </view>
+
+  <view class="metrics">
+    <view class="metric"><text>年工作天数</text><text class="metric-value">{{yearWorkDays}}<text> 天</text></text></view>
+    <view class="metric"><text>平均日薪</text><text class="metric-value">{{dailyPay}}<text> 元</text></text></view>
+    <view class="metric metric-wide"><text>真实时薪</text><text class="metric-value">{{hourlyPay}}<text> 元 / 小时</text></text><text class="metric-note">已计入通勤、午休和每月工作成本</text></view>
+  </view>
+
+  <view class="report-block report-dark"><text class="block-no">01 / 最终评估</text><text class="block-title">{{level.title}}</text><text class="block-copy">{{level.summary}}</text><view class="facts"><text>综合指数</text><text>{{score}} / 100</text></view></view>
+  <view class="report-block"><text class="block-no">02 / 工作城市</text><text class="block-title">{{city.title}}</text><text class="block-copy">{{city.copy}}</text><view class="facts"><text>所在城市</text><text>{{form.city}}</text><text>是否在家乡</text><text>{{form.hometown}}</text></view></view>
+  <view class="report-block"><text class="block-no">03 / 每天通勤</text><text class="block-title">{{commute.title}}</text><text class="block-copy">{{commute.copy}}</text><view class="facts"><text>每日通勤</text><text>{{form.commuteHours}} 小时</text><text>每周远程</text><text>{{form.wfhDays}} / {{form.weeklyDays}} 天</text></view></view>
+  <view class="report-block"><text class="block-no">04 / 工作环境</text><text class="block-title">{{environment.title}}</text><text class="block-copy">{{environment.copy}}</text><view class="facts"><text>办公环境</text><text>{{form.environment}}</text><text>领导关系</text><text>{{form.manager}}</text><text>同事关系</text><text>{{form.colleague}}</text></view></view>
+  <view class="report-block"><text class="block-no">05 / 工作时间</text><text class="block-title">{{time.title}}</text><text class="block-copy">{{time.copy}}</text><view class="facts"><text>每日总投入</text><text>{{dailyCommitment}} 小时</text><text>年假</text><text>{{form.annualLeave}} 天 / 年</text><text>带薪病假</text><text>{{form.sickLeave}} 天 / 年</text><text>法定假日</text><text>{{form.statutoryHolidays}} 天 / 年</text></view></view>
+  <view class="report-block"><text class="block-no">06 / 教育与工作经验</text><text class="block-title">{{career.title}}</text><text class="block-copy">{{career.copy}}</text><view class="facts"><text>最高学历</text><text>{{form.education}}</text><text>学校类型</text><text>{{form.school}}</text><text>工作年限</text><text>{{form.experience}}</text><text>职业稳定度</text><text>{{form.stability}}</text></view></view>
+  <view class="report-block"><text class="block-no">07 / 日薪</text><text class="block-title">{{pay.title}}</text><text class="block-copy">{{pay.copy}}</text><view class="facts"><text>税前年薪</text><text>{{annualSalaryText}} 元</text><text>年工作天数</text><text>{{yearWorkDays}} 天</text></view></view>
+  <view class="report-block report-dark"><text class="block-no">08 / 综合建议</text><text class="block-title">下一步，先做这件事</text><text class="block-copy">{{level.action}}</text></view>
+  <view class="actions"><button class="primary" bindtap="shareReportImage" disabled="{{generatingReport}}">{{generatingReport ? '正在生成…' : '分享结果'}}</button><button class="secondary" bindtap="restart">重新测试</button><button class="secondary" bindtap="goHome">回到首页</button></view>
+  <canvas type="2d" id="reportCanvas" class="report-canvas"></canvas>
+</view>

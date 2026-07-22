@@ -1,0 +1,11 @@
+<view class="page safe-bottom">
+  <view class="masthead"><text>02 / EMOTION CHECK</text><text>结果报告</text></view>
+  <view class="hero"><text class="eyebrow">CURRENT EMOTIONAL LOAD</text><text class="score">{{total}}</text><text class="score-unit">/ 36</text><text class="title">{{result.title}}</text><text class="tagline">{{result.tagline}}</text></view>
+  <view class="block"><text class="block-no">01 / 此刻的你</text><text class="block-copy">{{result.truth}}</text></view>
+  <view class="block"><text class="block-no">02 / 拯救计划</text><text class="block-copy">{{result.plan}}</text></view>
+  <view class="quote"><text>“</text><text>{{result.quote}}</text></view>
+  <view class="block"><text class="block-no">03 / 情绪维度</text><view class="dimensions"><view wx:for="{{dimensions}}" wx:key="name" class="dimension"><view class="dimension-copy"><text>{{item.name}}</text><text>{{item.score}} / 9</text></view><view class="bar"><view class="bar-fill" style="width: {{item.percent}}%"></view></view><text class="dimension-note">{{item.note}}</text></view></view></view>
+  <view class="safety" wx:if="{{result.safety}}"><text class="block-no">重要提醒</text><text>如果低落、失眠、无望感或自我伤害的想法持续出现，请尽快联系可信赖的人、心理咨询师或当地紧急支持服务。你不需要一个人扛着。</text></view>
+  <view class="actions"><button class="primary" bindtap="shareReportImage" disabled="{{generatingReport}}">{{generatingReport ? '正在生成…' : '分享结果'}}</button><button class="secondary" bindtap="restart">重新测试</button><button class="secondary" bindtap="goHome">回到首页</button></view>
+  <canvas type="2d" id="reportCanvas" class="report-canvas"></canvas>
+</view>

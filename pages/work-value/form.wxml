@@ -1,0 +1,63 @@
+<view class="page safe-bottom">
+  <view class="masthead"><text>01 / WORK VALUE</text><text>盘算表</text></view>
+
+  <view class="panel">
+    <text class="panel-title">年薪总包（元）</text>
+    <view class="control control-full"><input type="digit" value="{{annualSalary}}" placeholder="请输入税前年薪" bindinput="updateField" data-field="annualSalary"/></view>
+  </view>
+  <view class="panel">
+    <text class="panel-title">收入补充信息（选填）</text>
+    <text class="control-label">月到手收入（元 / 月）</text>
+    <view class="control control-full"><input type="digit" value="{{monthlyTakeHome}}" placeholder="选填，用于更精准计算" bindinput="updateField" data-field="monthlyTakeHome"/></view>
+    <text class="control-label control-label-gap">月度福利（元 / 月）</text>
+    <view class="control control-full"><input type="digit" value="{{monthlyBenefits}}" placeholder="公积金、饭补等" bindinput="updateField" data-field="monthlyBenefits"/></view>
+    <text class="control-label control-label-gap">月度扣除（元 / 月）</text>
+    <view class="control control-full"><input type="digit" value="{{monthlyDeductions}}" placeholder="房租、硬性支出等" bindinput="updateField" data-field="monthlyDeductions"/></view>
+  </view>
+  <view class="panel">
+    <text class="panel-title">工作安排</text>
+    <view class="control-grid">
+      <view><text class="control-label">每周工作天数 / d</text><view class="control"><input type="digit" value="{{weeklyDays}}" bindinput="updateField" data-field="weeklyDays"/></view></view>
+      <view><text class="control-label">可居家办公天数</text><view class="control"><input type="digit" value="{{wfhDays}}" bindinput="updateField" data-field="wfhDays"/></view></view>
+      <view><text class="control-label">年假天数 / d</text><view class="control"><input type="digit" value="{{annualLeave}}" bindinput="updateField" data-field="annualLeave"/></view></view>
+      <view><text class="control-label">法定假日 / d</text><view class="control"><input type="digit" value="{{statutoryHolidays}}" bindinput="updateField" data-field="statutoryHolidays"/></view></view>
+      <view><text class="control-label">带薪病假 / d</text><view class="control"><input type="digit" value="{{sickLeave}}" bindinput="updateField" data-field="sickLeave"/></view></view>
+    </view>
+  </view>
+  <view class="panel">
+    <text class="panel-title">工时信息</text>
+    <view class="control-grid">
+      <view><text class="control-label">每天总工时 / h</text><view class="control"><input type="digit" value="{{dailyHours}}" bindinput="updateField" data-field="dailyHours"/></view></view>
+      <view><text class="control-label">通勤 / h</text><view class="control"><input type="digit" value="{{commuteHours}}" bindinput="updateField" data-field="commuteHours"/></view></view>
+      <view><text class="control-label">休息与摸鱼 / h</text><view class="control"><input type="digit" value="{{breakHours}}" bindinput="updateField" data-field="breakHours"/></view></view>
+    </view>
+  </view>
+  <view class="panel">
+    <text class="panel-title">个人学历水平</text>
+    <view class="control-grid">
+      <view><text class="control-label">学位类型</text><picker class="control picker-control" mode="selector" range="{{educationOptions}}" value="{{educationIndex}}" bindchange="choosePicker" data-field="education"><view class="picker-inner"><text>{{education}}</text><text>v</text></view></picker></view>
+      <view><text class="control-label">学校类型</text><picker class="control picker-control" mode="selector" range="{{schoolOptions}}" value="{{schoolIndex}}" bindchange="choosePicker" data-field="school"><view class="picker-inner"><text>{{school}}</text><text>v</text></view></picker></view>
+    </view>
+  </view>
+  <view class="panel"><text class="panel-title">工作年限</text><text class="control-label">工作年限</text><picker class="control control-full picker-control" mode="selector" range="{{experienceOptions}}" value="{{experienceIndex}}" bindchange="choosePicker" data-field="experience"><view class="picker-inner"><text>{{experience}}</text><text>v</text></view></picker></view>
+  <view class="panel"><text class="panel-title">工作稳定性</text><text class="control-label">职业稳定度</text><picker class="control control-full picker-control" mode="selector" range="{{stabilityOptions}}" value="{{stabilityIndex}}" bindchange="choosePicker" data-field="stability"><view class="picker-inner"><text>{{stability}}</text><text>v</text></view></picker></view>
+  <view class="panel">
+    <text class="panel-title">工作环境</text>
+    <text class="control-label">工作环境</text><picker class="control control-full picker-control" mode="selector" range="{{environmentOptions}}" value="{{environmentIndex}}" bindchange="choosePicker" data-field="environment"><view class="picker-inner"><text>{{environment}}</text><text>v</text></view></picker>
+    <text class="control-label control-label-gap">老板性格</text><picker class="control control-full picker-control" mode="selector" range="{{managerOptions}}" value="{{managerIndex}}" bindchange="choosePicker" data-field="manager"><view class="picker-inner"><text>{{manager}}</text><text>v</text></view></picker>
+    <text class="control-label control-label-gap">同事关系</text><picker class="control control-full picker-control" mode="selector" range="{{colleagueOptions}}" value="{{colleagueIndex}}" bindchange="choosePicker" data-field="colleague"><view class="picker-inner"><text>{{colleague}}</text><text>v</text></view></picker>
+  </view>
+  <view class="panel">
+    <text class="panel-title">城市信息</text>
+    <text class="control-label">工作城市</text><picker class="control control-full picker-control" mode="selector" range="{{cityOptions}}" value="{{cityIndex}}" bindchange="choosePicker" data-field="city"><view class="picker-inner"><text>{{city}}</text><text>v</text></view></picker>
+    <view class="switch-row"><text>是否在家乡</text><switch checked="{{hometown === '在家乡'}}" color="#111111" bindchange="toggleHometown"/></view>
+  </view>
+  <view class="panel">
+    <text class="panel-title">公司福利（加分项）</text>
+    <view class="control-grid">
+      <view><text class="control-label">班车服务</text><picker class="control picker-control" mode="selector" range="{{benefitOptions}}" value="{{shuttleIndex}}" bindchange="choosePicker" data-field="shuttle"><view class="picker-inner"><text>{{shuttle}}</text><text>v</text></view></picker></view>
+      <view><text class="control-label">食堂 / 餐补</text><picker class="control picker-control" mode="selector" range="{{benefitOptions}}" value="{{canteenIndex}}" bindchange="choosePicker" data-field="canteen"><view class="picker-inner"><text>{{canteen}}</text><text>v</text></view></picker></view>
+    </view>
+  </view>
+  <button class="submit" bindtap="submit">查看我的工作性价比</button>
+</view>
