@@ -1,0 +1,12 @@
+<view class="page safe-bottom">
+  <view class="masthead"><text>04 / MBTI TENDENCIES</text><text>结果报告</text></view>
+  <view class="hero"><text class="eyebrow">YOUR PERSONALITY TENDENCY</text><text class="type">{{result.type}}</text><text class="type-name">{{result.name}}</text></view>
+  <view class="block"><text class="block-no">01 / 你的测试结果</text><text class="block-copy">{{result.summary}}</text></view>
+  <view class="block"><text class="block-no">02 / 四个偏好维度</text><view class="dimensions"><view wx:for="{{dimensions}}" wx:key="label" class="dimension"><text class="dimension-label">{{item.label}}</text><text class="dimension-result">更偏向：{{item.tendency}}</text><text class="dimension-detail">{{item.left}} {{item.leftScore}} 分 · {{item.right}} {{item.rightScore}} 分</text></view></view></view>
+  <view class="block"><text class="block-no">03 / 你的典型模式</text><text class="block-copy">{{result.insight}}</text></view>
+  <view class="block"><text class="block-no">04 / 你的天然优势</text><text class="block-copy">{{result.strength}}</text></view>
+  <view class="block block-dark"><text class="block-no">05 / 给你的提醒</text><text class="block-copy">{{result.growth}}</text></view>
+  <view class="actions"><button class="primary" bindtap="shareReportImage" disabled="{{generatingReport}}">{{generatingReport ? '正在生成…' : '分享结果'}}</button><button class="secondary" bindtap="restart">重新测试</button><button class="secondary" bindtap="goHome">回到首页</button></view>
+  <text class="note">原创人格倾向测试，非官方 MBTI® 测评；结果仅供娱乐。</text>
+  <canvas type="2d" id="reportCanvas" class="report-canvas"></canvas>
+</view>

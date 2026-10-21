@@ -9,12 +9,15 @@ Page({
     emotionTitle: '情绪自查&拯救计划',
     relationshipTitle: '情感自查&优化',
     nextHoliday: {},
-    weekendCountdown: {}
+    weekendCountdown: {},
+    offWorkCountdown: '00:00:00',
+    offWorkLabel: '到点就走，谁拦谁死'
   },
 
   onLoad() {
     this.setData({ nextHoliday: this.getNextHoliday() })
     this.setData({ weekendCountdown: this.getWeekendCountdown() })
+    this.startOffWorkTimer()
     const selectedMBTI = wx.getStorageSync('partnerTestMBTI')
     const mbtiIndex = MBTI_TYPES.findIndex(item => item.value === selectedMBTI)
     if (mbtiIndex !== -1) {
@@ -50,14 +53,37 @@ Page({
   getWeekendCountdown() {
     const today = new Date()
     const dayOfWeek = today.getDay()
-    if (dayOfWeek === 0 || dayOfWeek === 5 || dayOfWeek === 6) {
+    if (dayOfWeek === 0 || dayOfWeek === 6) {
       return { countdown: 0, label: '今天就是周末，好好休息' }
     }
-    const countdown = 5 - dayOfWeek
+    const countdown = 6 - dayOfWeek
     return {
       countdown,
       label: 'Friday Night！！'
     }
+  },
+
+  updateOffWorkCountdown() {
+    const now = new Date()
+    const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 18, 0, 0)
+    const isTomorrow = now >= target
+    if (isTomorrow) target.setDate(target.getDate() + 1)
+    let seconds = Math.ceil((target - now) / 1000)
+    const hours = Math.floor(seconds / 3600)
+    seconds %= 3600
+    const minutes = Math.floor(seconds / 60)
+    const remainingSeconds = seconds % 60
+    const pad = value => String(value).padStart(2, '0')
+    this.setData({
+      offWorkCountdown: `${pad(hours)}:${pad(minutes)}:${pad(remainingSeconds)}`,
+      offWorkLabel: '到点就走，谁拦谁死'
+    })
+  },
+
+  startOffWorkTimer() {
+    if (this.offWorkTimer) clearInterval(this.offWorkTimer)
+    this.updateOffWorkCountdown()
+    this.offWorkTimer = setInterval(() => this.updateOffWorkCountdown(), 1000)
   },
 
   toDate(date) {
@@ -69,6 +95,18 @@ Page({
     wx.showShareMenu({
       menus: ['shareAppMessage', 'shareTimeline']
     })
+    if (!this.offWorkTimer) this.startOffWorkTimer()
+  },
+
+  onHide() {
+    if (this.offWorkTimer) {
+      clearInterval(this.offWorkTimer)
+      this.offWorkTimer = null
+    }
+  },
+
+  onUnload() {
+    if (this.offWorkTimer) clearInterval(this.offWorkTimer)
   },
 
   selectMBTI(event) {
@@ -100,6 +138,10 @@ Page({
 
   openPersonality() {
     wx.navigateTo({ url: '/pages/personality/quiz?reset=1' })
+  },
+
+  openMbtiTest() {
+    wx.navigateTo({ url: '/pages/mbti/quiz?reset=1' })
   },
 
   openEmotion() {

@@ -2,6 +2,15 @@
   <view class="hero-copy">
     <text class="title">浮沉自渡/<br/>冷暖自知</text>
     <text class="subtitle">让我来帮你摸清底细，对齐颗粒度</text>
+    <text class="privacy-note">纯前端页面，无任何后端数据储存和数据埋点，请放心使用，无需担心隐私信息泄露，如有虚假，欢迎来天府三街砍我</text>
+  </view>
+
+  <view class="countdown-card offwork-countdown">
+    <view class="holiday-copy">
+      <text class="holiday-label">下班倒计时</text>
+      <text class="holiday-name">{{offWorkLabel}}</text>
+    </view>
+    <text class="offwork-time">{{offWorkCountdown}}</text>
   </view>
 
   <view class="countdown-card weekend-countdown">
@@ -43,14 +52,21 @@
     </view>
     <view class="module module-muted" bindtap="openPersonality">
       <view class="module-copy">
-        <view class="module-heading"><text class="module-no">03</text><text class="module-title">性格测试</text></view>
+        <view class="module-heading"><text class="module-no">03</text><text class="module-title">职场性格测试</text></view>
         <text class="module-desc">清晰自我认知，早日赎身</text>
+      </view>
+      <text class="module-arrow">→</text>
+    </view>
+    <view class="module module-dark" bindtap="openMbtiTest">
+      <view class="module-copy">
+        <view class="module-heading"><text class="module-no">04</text><text class="module-title">MBTI 人格测试</text></view>
+        <text class="module-desc">探索你的性格偏好与能量来源</text>
       </view>
       <text class="module-arrow">→</text>
     </view>
     <view class="module module-featured" bindtap="openRelationship">
       <view class="module-copy">
-        <view class="module-heading"><text class="module-no">04</text><text class="module-title">两性关系</text></view>
+        <view class="module-heading"><text class="module-no">05</text><text class="module-title">两性关系监测</text></view>
         <text class="module-desc">上天给我什么，我就享受什么</text>
       </view>
       <text class="module-arrow">→</text>

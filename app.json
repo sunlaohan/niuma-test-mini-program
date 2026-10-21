@@ -5,6 +5,8 @@
     "pages/work-value/result",
     "pages/personality/quiz",
     "pages/personality/result",
+    "pages/mbti/quiz",
+    "pages/mbti/result",
     "pages/emotion/quiz",
     "pages/emotion/result",
     "pages/quiz/quiz",
